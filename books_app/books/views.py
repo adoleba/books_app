@@ -22,9 +22,12 @@ def add_book(request):
     if request.method == "POST":
         form = BookForm(request.POST)
         if form.is_valid():
-            book = form.save(commit=False)
-            book.save()
-            return redirect('index')
+            title = form.cleaned_data['title']
+            description = form.cleaned_data['description']
+            book = Book.objects.create(title=title, description=description)
+            book.category.add(*form.cleaned_data['category'])
+            book.author.get_or_create(name=form.cleaned_data['author'])
+        return redirect('index')
 
     else:
         form = BookForm(request.POST)
