@@ -2,18 +2,25 @@
 
 {% block content %}
 
-{% for book in books %}
-    <h2>{{ book.title }}</h2>
-    {% for author in book.author.all %}
-        <br />{{ author.name }}
-    {% endfor %}
-    <br />
-    <b>Kategoria: </b>
-    {% for category in book.category.all %}
-        {{ category.name |lower}},
-    {% endfor %}
-    <p>{{ book.description }}</p>
-    <hr>
-{% endfor %}
+    <form method="get">
+        {{ category_filter.form}}
+        <button type="submit">Filtruj</button>
+    </form>
+
+    <ul>
+        {% for book in category_filter.qs %}
+            <h2>{{ book.title }}</h2>
+            {% for author in book.author.all %}
+                    <br />{{ author.name }}
+            {% endfor %}
+            <br />
+            <b>Kategoria: </b>
+            {% for category in book.category.all %}
+                {{ category.name |lower}},
+            {% endfor %}
+            <p>{{ book.description }}</p>
+            <hr>
+        {% endfor %}
+  </ul>
 
 {% endblock %}
