@@ -17,18 +17,12 @@ def index(request):
                                                                 'authors': authors, 'category_filter': category_filter})
 
 
-def category_filter(request):
-    book_list = Book.objects.all()
-    category_filter = CategoryFilter(request.GET, queryset=book_list)
-    return render(request, 'books/templates/books_index.html', {'category_filter': category_filter})
-
-
 def add_book(request):
-    pass
+    return render(request, 'books/templates/add_book.html', )
 
 
 def import_book(request):
-    pass
+    return render(request, 'books/templates/import_book.html', )
 
 
 

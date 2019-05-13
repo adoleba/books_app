@@ -6,11 +6,11 @@
 </head>
 <body>
 
-Home
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'add_book' %}">Add Book</a>
+    <a href="{% url 'import_book' %}">Import</a>
 
-Add Book
 
-Import
 
 {% block content %}
 {% endblock %}
