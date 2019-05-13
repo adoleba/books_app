@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from books_app.books.filters import CategoryFilter
+from books_app.books.forms import BookForm
 
 
 from books_app.books.models import Book, Category, Author
@@ -18,11 +19,19 @@ def index(request):
 
 
 def add_book(request):
-    return render(request, 'books/templates/add_book.html', )
+    if request.method == "POST":
+        form = BookForm(request.POST)
+        if form.is_valid():
+            book = form.save(commit=False)
+            book.save()
+            return redirect('index')
+
+    else:
+        form = BookForm(request.POST)
+
+    return render(request, 'books/templates/add_book.html', {'form': form})
 
 
 def import_book(request):
     return render(request, 'books/templates/import_book.html', )
-
-
 
