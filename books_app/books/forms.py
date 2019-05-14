@@ -16,4 +16,4 @@ class AuthorForm(forms.Form):
 
 
 class ImportForm(forms.Form):
-    value = title = forms.CharField(label='Szukana wartość', max_length=100)
+    value = forms.CharField(label='Szukana wartość', max_length=100)

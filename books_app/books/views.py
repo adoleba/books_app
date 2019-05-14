@@ -1,6 +1,6 @@
 import requests
 from django.http import HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from books_app.books.filters import CategoryFilter
 from books_app.books.forms import BookForm, AuthorForm, ImportForm
 
@@ -38,28 +38,50 @@ def add_book(request):
 
 def add_author(request):
     if request.method == "POST":
-        form = AuthorForm(request.POST)
+        form = ImportForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
             author = Author.objects.create(name=name)
         return redirect('add_book')
 
     else:
-        form = AuthorForm(request.POST)
+        form = Book(request.POST)
 
     return render(request, 'books/templates/add_author.html', {'form': form})
 
 
-def import_book(request):
-    response = requests.get('https://www.googleapis.com/books/v1/volumes?q=search+terms')
+def import_book(request, value_url):
+    response = requests.get(value_url)
     data = response.json()
     books_data = data['items']
     for value in books_data:
         book_dict = value['volumeInfo']
         title = book_dict['title']
-        description = book_dict['description']
-        #authors = book_dict['authors']
-        #categories = book_dict['categories']
-        Book.objects.create(title=title, description=description)
-    return redirect('index')
+        description = book_dict['publisher']
+        authors = book_dict['authors']
+        categories = book_dict['authors']
+        book = Book.objects.create(title=title, description=description)
+        for author in authors:
+            book.author.create(name=author)
+        for category in categories:
+            book.category.create(name=category)
+
+
+def set_import(request):
+
+    if request.method == "POST":
+        form = ImportForm(request.POST)
+        if form.is_valid():
+            value = form.cleaned_data['value']
+            value_url = 'https://www.googleapis.com/books/v1/volumes?q=' + value
+            import_book(request, value_url=value_url)
+            return redirect(index)
+
+    else:
+        form = ImportForm(request.POST)
+
+    return render(request, 'books/templates/import_book.html', {'form': form})
+
+
+
 
