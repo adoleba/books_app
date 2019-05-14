@@ -15,9 +15,13 @@
             {% endfor %}
             <br />
             <b>Kategoria: </b>
-            {% for category in book.category.all %}
-                {{ category.name |lower}},
-            {% endfor %}
+            {% if book.category.all %}
+                {% for category in book.category.all %}
+                    {{ category.name |lower}},
+                {% endfor %}
+            {% else %}
+                no categories
+            {% endif %}
             <p>{{ book.description }}</p>
             <hr>
         {% endfor %}
