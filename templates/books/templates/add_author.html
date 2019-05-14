@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>Importuj wg tytułu</p>
+
+    <h2>Add new author</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.value }}<br />
+        <h3>Imię i nazwisko:</h3>
+        {{ form.name }}
         <br />
-        <button type="submit">Importuj</button>
+        <button type="submit">Dodaj</button>
     </form>
+
 {% endblock %}
