@@ -1,4 +1,4 @@
-from django.contrib.sites import requests
+import requests
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from books_app.books.filters import CategoryFilter
@@ -51,5 +51,15 @@ def add_author(request):
 
 
 def import_book(request):
-    pass
+    response = requests.get('https://www.googleapis.com/books/v1/volumes?q=search+terms')
+    data = response.json()
+    books_data = data['items']
+    for value in books_data:
+        book_dict = value['volumeInfo']
+        title = book_dict['title']
+        description = book_dict['description']
+        #authors = book_dict['authors']
+        #categories = book_dict['categories']
+        Book.objects.create(title=title, description=description)
+    return redirect('index')
 
