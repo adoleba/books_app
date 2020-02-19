@@ -1,11 +1,8 @@
 import requests
-from django.http import HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404, render_to_response
-from books_app.books.filters import CategoryFilter
-from books_app.books.forms import BookForm, AuthorForm, ImportForm
-
-
-from books_app.books.models import Book, Category, Author
+from django.shortcuts import render, redirect
+from books.filters import CategoryFilter
+from books.forms import BookForm, AuthorForm, ImportForm
+from books.models import Book, Category, Author
 
 
 def index(request):
@@ -86,6 +83,7 @@ def import_book(request, value_url):
             categories = ""
 
         book = Book.objects.create(title=title, description=description)
+
         for author in authors:
             authors_in_qs = Author.objects.values()
             list_of_authors = [author['name'] for author in authors_in_qs]
@@ -94,6 +92,7 @@ def import_book(request, value_url):
                 book.author.add(author_name)
             else:
                 book.author.create(name=author)
+
         for category in categories:
             categories_in_qs = Category.objects.values()
             list_of_categories = [author['name'] for author in categories_in_qs]
