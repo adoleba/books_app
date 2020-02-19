@@ -1,6 +1,6 @@
 import django_filters
 
-from books_app.books.models import Book, Category, Author
+from books.models import Category, Author, Book
 
 
 class CategoryFilter(django_filters.FilterSet):

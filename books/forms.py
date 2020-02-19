@@ -1,7 +1,6 @@
 from django import forms
-from django.forms import ModelMultipleChoiceField
 
-from books_app.books.models import Category, Author
+from books.models import Author, Category
 
 
 class BookForm(forms.Form):
