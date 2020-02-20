@@ -1,6 +1,7 @@
 import requests
 from django.shortcuts import render, redirect
-from books.filters import CategoryFilter
+
+from books.filters import QuerysetFilter
 from books.forms import BookForm, AuthorForm, ImportForm
 from books.models import Book, Category, Author
 
@@ -10,7 +11,7 @@ def index(request):
     categories = Category.objects.all()
     authors = Author.objects.all()
     book_list = Book.objects.all()
-    category_filter = CategoryFilter(request.GET, queryset=book_list)
+    category_filter = QuerysetFilter(request.GET, queryset=book_list)
 
     return render(request, 'books/templates/books_index.html', {'books': books, 'categories': categories,
                                                                 'authors': authors, 'category_filter': category_filter})
@@ -28,7 +29,7 @@ def add_book(request):
         return redirect('index')
 
     else:
-        form = BookForm(request.POST)
+        form = BookForm()
 
     return render(request, 'books/templates/add_book.html', {'form': form})
 
@@ -42,7 +43,7 @@ def add_author(request):
         return redirect('add_book')
 
     else:
-        form = AuthorForm(request.POST)
+        form = AuthorForm()
 
     return render(request, 'books/templates/add_author.html', {'form': form})
 
@@ -58,7 +59,7 @@ def set_import(request):
             return redirect(index)
 
     else:
-        form = ImportForm(request.POST)
+        form = ImportForm()
 
     return render(request, 'books/templates/import_book.html', {'form': form})
 
@@ -75,6 +76,7 @@ def import_book(request, value_url):
             description = book_dict['description']
         else:
             description = "No description"
+
         authors = book_dict['authors']
 
         if 'categories' in book_dict:
