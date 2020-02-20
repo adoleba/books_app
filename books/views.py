@@ -38,8 +38,11 @@ def add_author(request):
     if request.method == "POST":
         form = AuthorForm(request.POST)
         if form.is_valid():
+            authors_in_qs = Author.objects.values()
+            list_of_authors = [author['name'] for author in authors_in_qs]
             name = form.cleaned_data['name']
-            author = Author.objects.create(name=name)
+            if name not in list_of_authors:
+                author = Author.objects.create(name=name)
         return redirect('add_book')
 
     else:
