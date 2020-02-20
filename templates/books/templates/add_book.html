@@ -5,15 +5,15 @@
     <h2>Add new book</h2>
     <form method="post">
         {% csrf_token %}
-        <h3>Autor:</h3>
-        {{ form.author }}<br />
-        <a href="{% url 'add_author' %}">Autora nie ma na liście?</a>
-        <h3>Tytuł:</h3>
-        {{ form.title }}
-        <h3>Opis:</h3>
-        {{ form.description }}
-        <h3>Kategorie:</h3>
-        {{ form.category }}
+        <h3>{{ form.author.label }}:</h3>
+            {{ form.author }}<br />
+            <a href="{% url 'add_author' %}">Autora nie ma na liście?</a>
+        <h3>{{ form.title.label }}:</h3>
+            {{ form.title }}
+        <h3>{{ form.description.label }}:</h3>
+            {{ form.description }}
+        <h3>{{ form.category.label }}:</h3>
+            {{ form.category }}
         <br />
         <button type="submit">Dodaj</button>
     </form>
