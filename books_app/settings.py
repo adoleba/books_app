@@ -126,4 +126,7 @@ django_heroku.settings(locals())
 del DATABASES['default']['OPTIONS']['sslmode']
 
 STATIC_URL = '/static/'
-STATIC_ROOT = root('staticfiles')
+STATIC_ROOT = root('static')
+
+MEDIA_ROOT = root('media')
+MEDIA_URL = '/media/'
