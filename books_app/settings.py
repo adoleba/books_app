@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 from environ import Env, Path
+import django_heroku
 
 env = Env(
     DEBUG=(bool, False)
@@ -31,6 +32,8 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+
+BASE_DIR = root()
 
 
 # Application definition
@@ -119,4 +122,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+django_heroku.settings(locals())
+del DATABASES['default']['OPTIONS']['sslmode']
+
 STATIC_URL = '/static/'
+STATIC_ROOT = root('staticfiles')
