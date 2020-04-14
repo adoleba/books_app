@@ -125,7 +125,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 django_heroku.settings(locals())
-del DATABASES['default']['OPTIONS']['sslmode']
 DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 
 STATIC_URL = '/static/'
