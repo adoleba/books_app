@@ -124,8 +124,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-django_heroku.settings(locals())
-
 STATIC_URL = '/static/'
 STATIC_ROOT = root('static')
 
@@ -133,3 +131,5 @@ MEDIA_ROOT = root('media')
 MEDIA_URL = '/media/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+django_heroku.settings(locals())
