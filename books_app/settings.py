@@ -126,6 +126,7 @@ USE_TZ = True
 
 django_heroku.settings(locals())
 del DATABASES['default']['OPTIONS']['sslmode']
+DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = root('static')
