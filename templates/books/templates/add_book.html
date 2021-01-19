@@ -7,7 +7,7 @@
         {% csrf_token %}
         <h3>{{ form.author.label }}:</h3>
             {{ form.author }}<br />
-            <a href="{% url 'add_author' %}">Autora nie ma na liście?</a>
+            <a href="{% url 'add_author' %}">The author is not on the list?</a>
         <h3>{{ form.title.label }}:</h3>
             {{ form.title }}
         <h3>{{ form.description.label }}:</h3>
@@ -15,7 +15,7 @@
         <h3>{{ form.category.label }}:</h3>
             {{ form.category }}
         <br />
-        <button type="submit">Dodaj</button>
+        <button type="submit">Add</button>
     </form>
 
 {% endblock %}

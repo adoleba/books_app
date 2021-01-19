@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>Importuj wg słowa kluczowego</p>
+<p>Import by keyword</p>
     <form method="post">
         {% csrf_token %}
         {{ form.value }}<br />
         <br />
-        <button type="submit">Importuj</button>
+        <button type="submit">Import</button>
     </form>
 {% endblock %}
