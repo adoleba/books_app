@@ -8,6 +8,7 @@
     </form>
 
     <ul>
+    {% if  category_filter.qs %}
         {% for book in category_filter.qs %}
             <h2>{{ book.title }}</h2>
             {% for author in book.author.all %}
@@ -25,6 +26,9 @@
             <p>{{ book.description }}</p>
             <hr>
         {% endfor %}
+    {% else %}
+        <p>No matching entry was found</p>
+    {% endif %}
   </ul>
 
 
